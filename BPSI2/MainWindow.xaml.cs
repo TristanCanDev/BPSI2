@@ -1,4 +1,5 @@
-﻿
+﻿using System.Runtime;
+using System.Runtime.InteropServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
-
+using System.Timers;
 
 namespace BPSI2
 {
@@ -24,50 +25,20 @@ namespace BPSI2
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public bool isRunning;
+        
         public MainWindow()
         {
             InitializeComponent();
-            StartUp();
-        }
-
-        private void MediaElement_Unloaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void StartUp()
-        {
-            isRunning = true;
-            while (isRunning == true)
+            if(CoolKidClass.checkforinternetconnection()== false)
             {
-                CheckForInternetConnection();
+                Offlinething.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Offlinething.Visibility = Visibility.Hidden;
             }
         }
 
-        public bool CheckForInternetConnection()
-        {
-            try
-            {
-                using (var client = new WebClient())
-                using (client.OpenRead("http://google.com/generate_204"))
-                    CoolKidGrid.Visibility = Visibility.Visible;
-                    return true;
-                
-            }
-            catch
-            {
-                CoolKidGrid.Visibility = Visibility.Hidden;
-                return false;
-            }
-        }
 
-        
     }
 }

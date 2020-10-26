@@ -11,17 +11,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="Resources/Images/BPSImain.jpg"/>
         </Grid.Background>
-        <Grid x:Name="CoolKidGrid" Margin="152,69,129,125" Visibility="Hidden">
-
-            <Rectangle Fill="#FF868689" Stroke="Black" Margin="10,0,10,13"/>
-            <TextBlock TextWrapping="Wrap" Text="Please connect to the internet and try again" Height="59" Width="335" FontSize="20" TextAlignment="Center" Margin="0,47,1,27"/>
-            <Label Content="No Internet Connection" FontSize="30" Width="335" Foreground="Black" Margin="0,0,1,75"/>
-
-
-
-        </Grid>
-
-
+        <Label x:Name="Offlinething" Content="OFFLINE ERR#0001" HorizontalAlignment="Left" Margin="671,10,0,0" VerticalAlignment="Top" Foreground="White" Visibility="Hidden"/>
 
     </Grid>
 
