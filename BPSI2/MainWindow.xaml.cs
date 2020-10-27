@@ -37,6 +37,7 @@ namespace BPSI2
             {
                 Offlinething.Visibility = Visibility.Hidden;
             }
+            
         }
 
 
