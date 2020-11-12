@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Timers;
+using System.Windows.Navigation;
 
 namespace BPSI2
 {
@@ -31,14 +32,21 @@ namespace BPSI2
             InitializeComponent();
             if(CoolKidClass.checkforinternetconnection()== false)
             {
-                Offlinething.Visibility = Visibility.Visible;
+                //Offlinething.Visibility = Visibility.Visible;
             }
             else
             {
-                Offlinething.Visibility = Visibility.Hidden;
+                //Offlinething.Visibility = Visibility.Hidden;
             }
             
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            coolFrame.Navigate(new PavlovPage());
+
+        }
+
 
 
     }
