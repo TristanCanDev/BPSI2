@@ -9,7 +9,7 @@
       Title="PavlovPage" Background="White">
 
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="287,245,0,0" VerticalAlignment="Top" Width="218" Height="58" Click="Button_Click"/>
+        <Button x:Name="mainbutton" Content="Download" HorizontalAlignment="Left" Margin="287,245,0,0" VerticalAlignment="Top" Width="218" Height="58" Click="Button_Click"/>
         <TextBlock x:Name="statusblock" HorizontalAlignment="Left" Margin="330,206,0,0" TextWrapping="Wrap" Text="Status" VerticalAlignment="Top" Height="20" Width="130" TextAlignment="Center"/>
         <ProgressBar x:Name="progressbaryes" HorizontalAlignment="Left" Height="10" Margin="343,333,0,0" VerticalAlignment="Top" Width="100"/>
 

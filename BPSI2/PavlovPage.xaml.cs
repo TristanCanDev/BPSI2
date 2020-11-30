@@ -39,16 +39,16 @@ namespace BPSI2
         public string CurrentURL;
         public void ReadUPSItxt(string appname)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
             WebClient upsitxt = new WebClient();
             Uri txturl = new Uri("https://thesideloader.co.uk/upsiopts.txt");
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu\\upsiopts.txt"))
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\upsiopts.txt"))
             {
-                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu\\upsiopts.txt");
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\upsiopts.txt");
             }
             upsitxt.DownloadFile(txturl, path + "\\upsiopts.txt");
 
@@ -73,18 +73,18 @@ namespace BPSI2
         public void GrabAppFiles(string url, string appname)
         {
             WebClient p = new WebClient();
-            string folderforfilesorwhatever = System.IO.Path.GetPathRoot(Environment.SystemDirectory);
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu");
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu");
             //check to see if the app already has a directory (thank you ModernEra for a good bit of this code!!
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu\\" + appname))
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\" + appname))
             {
                 Uri appdown = new Uri(url);
-                String filename = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu\\" + appname + ".zip";
+                String filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\" + appname + ".zip";
 
                 statusblock.Text = "Downloading";
-
+                mainbutton.IsEnabled = false;
+                p.DownloadFileCompleted += new AsyncCompletedEventHandler(extract);
+                p.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
                 p.DownloadFileAsync(appdown, filename);
-
 
 
                 void progress(object sender, DownloadProgressChangedEventArgs a)
@@ -92,21 +92,28 @@ namespace BPSI2
                     progressbaryes.Value = a.ProgressPercentage;
                 }
 
-
+                
 
                 async void extract(object sender, AsyncCompletedEventArgs f)
                 {
                     statusblock.Text = "Download Complete! Unzipping the file!";
-                    await Task.Run(() => ZipFile.ExtractToDirectory(filename, Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu\\" + appname));
+                    await Task.Run(() => ZipFile.ExtractToDirectory(filename, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\" + appname));
                     statusblock.Text = "File Unzipped!";
+                    mainbutton.IsEnabled = true;
                     if (appname == "Pavlov")
                     {
-                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu\\pavlov\\platform-tools");
-                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\Blu\\pavlov\\install.bat");
-
+                        
+                        Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//Pavlov//platform-tools", true);
+                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//Pavlov//ReadMe.txt");
 
                     }
                 }
+            }
+            else
+            {
+                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//" + appname, true);
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//" + appname + ".zip");
+                GrabAppFiles(CurrentURL, "Pavlov");
             }
         }
 
