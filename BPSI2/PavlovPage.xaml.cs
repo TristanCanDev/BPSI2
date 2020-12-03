@@ -73,7 +73,7 @@ namespace BPSI2
         public void GrabAppFiles(string url, string appname)
         {
             WebClient p = new WebClient();
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu");
+            
             //check to see if the app already has a directory (thank you ModernEra for a good bit of this code!!
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\" + appname))
             {
@@ -121,6 +121,28 @@ namespace BPSI2
         {
             ReadUPSItxt("Pavlov");
             GrabAppFiles(CurrentURL, "Pavlov");
+        }
+
+        private void pushmap_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog openFileDlg = new System.Windows.Forms.FolderBrowserDialog();
+
+            System.Windows.Forms.DialogResult result = openFileDlg.ShowDialog();
+
+            if(result == System.Windows.Forms.DialogResult.OK)
+            {
+                string mapDir = openFileDlg.SelectedPath;
+                string mapName = System.IO.Path.GetDirectoryName(mapDir);
+                statusblock.Text = mapName;
+                mapName = mapDir.Replace(mapName, "");
+                statusblock.Text = mapName;
+                mapName = mapName.Replace("\"", "");
+                statusblock.Text = mapName;
+
+
+                ADBcommands adb = new ADBcommands();
+                adb.PushMap(mapDir, mapName, statusblock);
+            }
         }
     }
 }

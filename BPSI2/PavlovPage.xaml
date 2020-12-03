@@ -10,8 +10,9 @@
 
     <Grid>
         <Button x:Name="mainbutton" Content="Download" HorizontalAlignment="Left" Margin="287,245,0,0" VerticalAlignment="Top" Width="218" Height="58" Click="Button_Click"/>
-        <TextBlock x:Name="statusblock" HorizontalAlignment="Left" Margin="330,206,0,0" TextWrapping="Wrap" Text="Status" VerticalAlignment="Top" Height="20" Width="130" TextAlignment="Center"/>
-        <ProgressBar x:Name="progressbaryes" HorizontalAlignment="Left" Height="10" Margin="343,333,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBlock x:Name="statusblock" HorizontalAlignment="Left" Margin="110,207,0,0" TextWrapping="Wrap" Text="Status" VerticalAlignment="Top" Height="19" Width="566" TextAlignment="Center"/>
+        <ProgressBar x:Name="progressbaryes" HorizontalAlignment="Left" Height="10" Margin="343,226,0,0" VerticalAlignment="Top" Width="100" Foreground="#FF59CAFF" BorderBrush="#FF323232"/>
+        <Button x:Name="pushmap" Content="Push A Map" HorizontalAlignment="Left" Margin="356,336,0,0" VerticalAlignment="Top" Width="74" Click="pushmap_Click"/>
 
     </Grid>
 </Page>

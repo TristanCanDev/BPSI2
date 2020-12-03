@@ -18,6 +18,9 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Timers;
 using System.Windows.Navigation;
+using System.IO;
+using System.IO.Packaging;
+using System.IO.Compression;
 
 namespace BPSI2
 {
@@ -27,6 +30,7 @@ namespace BPSI2
     public partial class MainWindow : Window
     {
         
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,7 +42,21 @@ namespace BPSI2
             {
                 //Offlinething.Visibility = Visibility.Hidden;
             }
-            
+
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\"))
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\Blu\\");
+            }
+
+            if(!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\initialized.blu"))
+            {
+                adbInstall();
+            }
+            ADBcommands.adblocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb\\platform-tools\\adb.exe";
+            foreach(var yes in System.Diagnostics.Process.GetProcessesByName("adb"))
+            {
+                yes.Kill();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,7 +65,32 @@ namespace BPSI2
 
         }
 
+        
+        void adbInstall()
+        {
+            File.Create(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\Blu\\initialized.blu");
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\"))
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\");
+            }
+            
+            WebClient adbdown = new WebClient();
+            Uri adburl = new Uri("https://dl.google.com/android/repository/platform-tools-latest-windows.zip");
 
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb.zip"))
+            {
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb.zip");
+            }
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb"))
+            {
+                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb", true);
+            }
+            adbdown.DownloadFile(adburl, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb.zip");
+            ZipFile.ExtractToDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb.zip", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb");
 
+            ADBcommands.adblocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb\\platform-tools\\adb.exe";
+        }
+
+        
     }
 }
