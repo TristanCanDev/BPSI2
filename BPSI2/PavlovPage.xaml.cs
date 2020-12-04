@@ -60,8 +60,14 @@ namespace BPSI2
                 {
                     if (line.Contains(appname))
                     {
-                        CurrentApp = appname;
                         CurrentURL = line.Substring(line.IndexOf("DOWNLOADFROM=")).Replace("DOWNLOADFROM=", "");
+                    }
+                }
+                if (line.StartsWith("NAME="))
+                {
+                    if (line.Contains(appname))
+                    {
+                        CurrentApp = line.Substring(line.IndexOf("NAME=")).Replace("NAME=", "");
                     }
                 }
             }
@@ -75,13 +81,14 @@ namespace BPSI2
             WebClient p = new WebClient();
             
             //check to see if the app already has a directory (thank you ModernEra for a good bit of this code!!
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\" + appname))
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + appname))
             {
                 Uri appdown = new Uri(url);
-                String filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\" + appname + ".zip";
+                String filename = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + appname + ".zip";
 
                 statusblock.Text = "Downloading";
                 mainbutton.IsEnabled = false;
+                progressbaryes.Visibility = Visibility.Visible;
                 p.DownloadFileCompleted += new AsyncCompletedEventHandler(extract);
                 p.DownloadProgressChanged += new DownloadProgressChangedEventHandler(progress);
                 p.DownloadFileAsync(appdown, filename);
@@ -97,30 +104,30 @@ namespace BPSI2
                 async void extract(object sender, AsyncCompletedEventArgs f)
                 {
                     statusblock.Text = "Download Complete! Unzipping the file!";
-                    await Task.Run(() => ZipFile.ExtractToDirectory(filename, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\" + appname));
+                    await Task.Run(() => ZipFile.ExtractToDirectory(filename, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + appname));
                     statusblock.Text = "File Unzipped!";
                     mainbutton.IsEnabled = true;
+                    progressbaryes.Visibility = Visibility.Hidden;
                     if (appname == "Pavlov")
                     {
                         
-                        Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//Pavlov//platform-tools", true);
-                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//Pavlov//ReadMe.txt");
+                        Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" +appname+"\\platform-tools", true);
+                        File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\"+appname+"\\ReadMe.txt");
 
                     }
                 }
             }
             else
             {
-                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//" + appname, true);
-                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Blu//" + appname + ".zip");
-                GrabAppFiles(CurrentURL, "Pavlov");
+                statusblock.Text = "GameFiles Already Exist. Pushing.";
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ReadUPSItxt("Pavlov");
-            GrabAppFiles(CurrentURL, "Pavlov");
+            GrabAppFiles(CurrentURL, CurrentApp);
+            PushGame();
         }
 
         private void pushmap_Click(object sender, RoutedEventArgs e)
@@ -136,13 +143,23 @@ namespace BPSI2
                 statusblock.Text = mapName;
                 mapName = mapDir.Replace(mapName, "");
                 statusblock.Text = mapName;
-                mapName = mapName.Replace("\"", "");
+                mapName = mapName.Replace("\\", "");
                 statusblock.Text = mapName;
 
 
                 ADBcommands adb = new ADBcommands();
                 adb.PushMap(mapDir, mapName, statusblock);
             }
+        }
+        void PushGame()
+        {
+            string pavName = username.Text;
+            if(pavName == "Username")
+            {
+                statusblock.Text = "Please set your username";
+                return;
+            }
+            
         }
     }
 }
