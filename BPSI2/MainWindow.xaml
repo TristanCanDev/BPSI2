@@ -11,9 +11,9 @@
         <Grid.Background>
             <ImageBrush ImageSource="Resources/Images/BPSImain.jpg"/>
         </Grid.Background>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="608,279,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Frame x:Name="coolFrame"/>
-        
+        <TextBlock x:Name="Offlinething" HorizontalAlignment="Left" Margin="265,97,0,0" TextWrapping="Wrap" Text="Computer Offline. Please Restart The Program When Connected To The Internet" VerticalAlignment="Top" Width="280" TextAlignment="Center" Height="151" FontSize="24" Background="#FFA8A8A8" Visibility="Hidden"/>
+
     </Grid>
 
 </Window>

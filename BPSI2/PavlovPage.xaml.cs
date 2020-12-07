@@ -37,8 +37,13 @@ namespace BPSI2
 
         public string CurrentApp;
         public string CurrentURL;
+        public string APKname;
+        public string comOBJ;
+        public string OBBname;
         public void ReadUPSItxt(string appname)
         {
+            
+
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu";
             if (!Directory.Exists(path))
             {
@@ -68,6 +73,27 @@ namespace BPSI2
                     if (line.Contains(appname))
                     {
                         CurrentApp = line.Substring(line.IndexOf("NAME=")).Replace("NAME=", "");
+                    }
+                }
+                if (line.StartsWith("OBB="))
+                {
+                    if (line.Contains(appname))
+                    {
+                        OBBname = line.Substring(line.IndexOf("OBB=")).Replace("OBB=", "");
+                    }
+                }
+                if (line.StartsWith("APK="))
+                {
+                    if (line.Contains(appname))
+                    {
+                        APKname = line.Substring(line.IndexOf("APK=")).Replace("APK=", "");
+                    }
+                }
+                if (line.StartsWith("COMOBJECT="))
+                {
+                    if (line.Contains(appname))
+                    {
+                        comOBJ = line.Substring(line.IndexOf("COMOBJECT=")).Replace("COMOBJECT=", "");
                     }
                 }
             }
@@ -108,14 +134,16 @@ namespace BPSI2
                     statusblock.Text = "File Unzipped!";
                     mainbutton.IsEnabled = true;
                     progressbaryes.Visibility = Visibility.Hidden;
-                    if (appname == "Pavlov")
+                    if (appname.Contains("Pavlov"))
                     {
                         
                         Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" +appname+"\\platform-tools", true);
                         File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\"+appname+"\\ReadMe.txt");
 
                     }
+
                 }
+
             }
             else
             {
@@ -125,9 +153,16 @@ namespace BPSI2
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string pavName = username.Text;
+            if (pavName == "Username")
+            {
+                statusblock.Text = "Please set your username";
+                return;
+            }
+
             ReadUPSItxt("Pavlov");
             GrabAppFiles(CurrentURL, CurrentApp);
-            PushGame();
+            PushGame(pavName);
         }
 
         private void pushmap_Click(object sender, RoutedEventArgs e)
@@ -149,16 +184,24 @@ namespace BPSI2
 
                 ADBcommands adb = new ADBcommands();
                 adb.PushMap(mapDir, mapName, statusblock);
+                adb.adbKill();
             }
         }
-        void PushGame()
+        void PushGame(string uName)
         {
-            string pavName = username.Text;
-            if(pavName == "Username")
-            {
-                statusblock.Text = "Please set your username";
-                return;
-            }
+
+            string fldrPATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\Blu\\GameFiles\\"+CurrentApp;
+            ADBcommands adb = new ADBcommands();
+            adb.uninstallGame(statusblock, comOBJ);
+            adb.setperms(statusblock, OBBname);
+            adb.pushOBB(statusblock, fldrPATH, CurrentApp, OBBname, comOBJ);
+            adb.pushAPK(statusblock, fldrPATH, CurrentApp, APKname);
+            adb.pavSetName(uName, statusblock);
+            
+        }
+
+        void SetNameYes(string uName, string appname)
+        {
             
         }
     }

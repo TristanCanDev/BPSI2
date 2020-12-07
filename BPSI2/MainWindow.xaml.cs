@@ -36,11 +36,12 @@ namespace BPSI2
             InitializeComponent();
             if(CoolKidClass.checkforinternetconnection()== false)
             {
-                //Offlinething.Visibility = Visibility.Visible;
+                Offlinething.Visibility = Visibility.Visible;
+                return;
             }
             else
             {
-                //Offlinething.Visibility = Visibility.Hidden;
+                Offlinething.Visibility = Visibility.Hidden;
             }
 
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\"))
@@ -59,6 +60,10 @@ namespace BPSI2
             foreach(var yes in System.Diagnostics.Process.GetProcessesByName("adb"))
             {
                 yes.Kill();
+            }
+            if (Offlinething.Visibility == Visibility.Hidden)
+            {
+                coolFrame.Navigate(new PavlovPage());
             }
         }
 
@@ -92,6 +97,7 @@ namespace BPSI2
             ZipFile.ExtractToDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb.zip", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb");
 
             ADBcommands.adblocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\adb\\latestadb\\platform-tools\\adb.exe";
+            
         }
 
         

@@ -6,14 +6,20 @@
       xmlns:local="clr-namespace:BPSI2"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PavlovPage" Background="White" ShowsNavigationUI="False">
+      Title="PavlovPage" ShowsNavigationUI="False">
+    <Page.Background>
+        <ImageBrush ImageSource="Resources/Images/PavlovBG.jpg" Stretch="UniformToFill"/>
+    </Page.Background>
 
-    <Grid>
-        <Button x:Name="mainbutton" Content="Download" HorizontalAlignment="Left" Margin="527,164,0,0" VerticalAlignment="Top" Width="218" Height="58" Click="Button_Click"/>
-        <TextBlock x:Name="statusblock" HorizontalAlignment="Left" Margin="527,227,0,0" TextWrapping="Wrap" Text="Status" VerticalAlignment="Top" Height="19" Width="218" TextAlignment="Center"/>
-        <ProgressBar x:Name="progressbaryes" HorizontalAlignment="Left" Height="10" Margin="527,251,0,0" VerticalAlignment="Top" Width="218" Foreground="#FF59CAFF" BorderBrush="#FF323232"/>
-        <Button x:Name="pushmap" Content="Push A Map" HorizontalAlignment="Left" Margin="603,287,0,0" VerticalAlignment="Top" Width="74" Click="pushmap_Click"/>
-        <TextBox x:Name="username" HorizontalAlignment="Left" Height="22" Margin="578,137,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="120" TextAlignment="Center"/>
+    <Viewbox>
+        <Grid Height="415">
+            <Button x:Name="mainbutton" Content="Download" HorizontalAlignment="Left" Margin="527,164,0,0" VerticalAlignment="Top" Width="218" Height="58" Click="Button_Click"/>
+            <TextBlock x:Name="statusblock" HorizontalAlignment="Left" Margin="527,227,0,0" TextWrapping="Wrap" Text="Status" VerticalAlignment="Top" Height="19" Width="218" TextAlignment="Center" Foreground="#FF00E8FF"/>
+            <ProgressBar x:Name="progressbaryes" HorizontalAlignment="Left" Height="10" Margin="527,251,0,0" VerticalAlignment="Top" Width="218" Foreground="#FF59CAFF" BorderBrush="#FF323232"/>
+            <Button x:Name="pushmap" Content="Push A Map" HorizontalAlignment="Left" Margin="603,287,0,0" VerticalAlignment="Top" Width="74" Click="pushmap_Click"/>
+            <TextBox x:Name="username" HorizontalAlignment="Left" Height="22" Margin="578,137,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="120" TextAlignment="Center"/>
 
-    </Grid>
+        </Grid>
+    </Viewbox>
+
 </Page>

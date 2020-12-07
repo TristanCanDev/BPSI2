@@ -122,5 +122,8 @@
   <ItemGroup>
     <Resource Include="Resources\Txt Files\supported_Apps.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\PavlovBG.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
