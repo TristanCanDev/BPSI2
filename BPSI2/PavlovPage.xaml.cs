@@ -41,7 +41,7 @@ namespace BPSI2
         public string APKname;
         public string comOBJ;
         public string OBBname;
-        public void ReadUPSItxt(string appname)
+        public void ReadUPSItxt(string appname, string appname2)
         {
             
 
@@ -68,10 +68,18 @@ namespace BPSI2
                     {
                         CurrentURL = line.Substring(line.IndexOf("DOWNLOADFROM=")).Replace("DOWNLOADFROM=", "");
                     }
+                    if (line.Contains(appname2))
+                    {
+                        CurrentURL = line.Substring(line.IndexOf("DOWNLOADFROM=")).Replace("DOWNLOADFROM=", "");
+                    }
                 }
                 if (line.StartsWith("NAME="))
                 {
                     if (line.Contains(appname))
+                    {
+                        CurrentApp = line.Substring(line.IndexOf("NAME=")).Replace("NAME=", "");
+                    }
+                    if (line.Contains(appname2))
                     {
                         CurrentApp = line.Substring(line.IndexOf("NAME=")).Replace("NAME=", "");
                     }
@@ -81,6 +89,12 @@ namespace BPSI2
                     if (line.Contains(appname))
                     {
                         OBBname = line.Substring(line.IndexOf("OBB=")).Replace("OBB=", "");
+                        OBBname = OBBname.Replace("\r", "");
+                    }
+                    if (line.Contains(appname2))
+                    {
+                        OBBname = line.Substring(line.IndexOf("OBB=")).Replace("OBB=", "");
+                        OBBname = OBBname.Replace("\r", "");
                     }
                 }
                 if (line.StartsWith("APK="))
@@ -88,6 +102,12 @@ namespace BPSI2
                     if (line.Contains(appname))
                     {
                         APKname = line.Substring(line.IndexOf("APK=")).Replace("APK=", "");
+                        APKname = APKname.Replace("\r", "");
+                    }
+                    if (line.Contains(appname2))
+                    {
+                        APKname = line.Substring(line.IndexOf("APK=")).Replace("APK=", "");
+                        APKname = APKname.Replace("\r", "");
                     }
                 }
                 if (line.StartsWith("COMOBJECT="))
@@ -95,6 +115,12 @@ namespace BPSI2
                     if (line.Contains(appname))
                     {
                         comOBJ = line.Substring(line.IndexOf("COMOBJECT=")).Replace("COMOBJECT=", "");
+                        comOBJ = comOBJ.Replace("\r", "");
+                    }
+                    if (line.Contains(appname2))
+                    {
+                        comOBJ = line.Substring(line.IndexOf("COMOBJECT=")).Replace("COMOBJECT=", "");
+                        comOBJ = comOBJ.Replace("\r", "");
                     }
                 }
             }
@@ -103,7 +129,7 @@ namespace BPSI2
 
 
 
-        public void GrabAppFiles(string url, string appname)
+        public void GrabAppFiles(string url, string appname, string pavName)
         {
             WebClient p = new WebClient();
             
@@ -133,7 +159,7 @@ namespace BPSI2
                     statusblock.Text = "Download Complete! Unzipping the file!";
                     await Task.Run(() => ZipFile.ExtractToDirectory(filename, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + appname));
                     statusblock.Text = "File Unzipped!";
-                    mainbutton.IsEnabled = true;
+                    
                     progressbaryes.Visibility = Visibility.Hidden;
                     if (appname.Contains("Pavlov"))
                     {
@@ -142,13 +168,31 @@ namespace BPSI2
                         File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\"+appname+"\\ReadMe.txt");
 
                     }
-
+                    SetNameYes(pavName);
+                    string fldrPATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\";
+                    ADBcommands adb = new ADBcommands();
+                    await Task.Run(() => adb.uninstallGame(statusblock, comOBJ));
+                    statusblock.Text = "Game Uninstalled";
+                    await Task.Run(() => adb.setperms(statusblock, OBBname));
+                    statusblock.Text = "Permissions Set. Pushing OBB";
+                    await Task.Run(() => adb.pushOBB(statusblock, fldrPATH, CurrentApp, OBBname, comOBJ));
+                    statusblock.Text = "OBB Pushed. Installing APK";
+                    await Task.Run(() => adb.pushAPK(statusblock, fldrPATH, CurrentApp, APKname));
+                    statusblock.Text = "APK Installed. Setting Name.";
+                    await Task.Run(() => adb.pavSetName(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + CurrentApp));
+                    statusblock.Text = "Name Set You're Ready To Play!";
+                    mainbutton.IsEnabled = true;
+                    adb.adbKill();
                 }
 
             }
             else
             {
-                statusblock.Text = "GameFiles Already Exist. Pushing.";
+                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + CurrentApp, true);
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + CurrentApp + ".zip");
+                GrabAppFiles(CurrentURL, CurrentApp, pavName);
+                
+
             }
         }
 
@@ -161,9 +205,9 @@ namespace BPSI2
                 return;
             }
 
-            ReadUPSItxt("Pavlov");
-            GrabAppFiles(CurrentURL, CurrentApp);
-            PushGame(pavName);
+            ReadUPSItxt("Pavlov", "pavlov");
+            GrabAppFiles(CurrentURL, CurrentApp, pavName);
+            
         }
 
         private void pushmap_Click(object sender, RoutedEventArgs e)
@@ -190,20 +234,22 @@ namespace BPSI2
         }
         void PushGame(string uName)
         {
-
+            
             string fldrPATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\Blu\\GameFiles\\"+CurrentApp;
             ADBcommands adb = new ADBcommands();
+            adb.adbKill();
             adb.uninstallGame(statusblock, comOBJ);
             adb.setperms(statusblock, OBBname);
             adb.pushOBB(statusblock, fldrPATH, CurrentApp, OBBname, comOBJ);
             adb.pushAPK(statusblock, fldrPATH, CurrentApp, APKname);
-            adb.pavSetName(uName, statusblock);
-            
+            adb.pavSetName(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\" + CurrentApp);
+            mainbutton.IsEnabled = true;
+            adb.adbKill();
         }
 
-        void SetNameYes(string uName, string appname)
+        void SetNameYes(string uName)
         {
-            
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\Blu\\GameFiles\\" + CurrentApp + "\\name.txt", uName);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
