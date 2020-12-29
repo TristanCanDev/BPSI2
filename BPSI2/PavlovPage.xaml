@@ -18,11 +18,6 @@
             <ProgressBar x:Name="progressbaryes" HorizontalAlignment="Left" Height="10" Margin="527,251,0,0" VerticalAlignment="Top" Width="218" Foreground="#FF59CAFF" BorderBrush="#FF323232"/>
             <Button x:Name="pushmap" Content="Push A Map" HorizontalAlignment="Left" Margin="603,287,0,0" VerticalAlignment="Top" Width="74" Click="pushmap_Click"/>
             <TextBox x:Name="username" HorizontalAlignment="Left" Height="22" Margin="578,137,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="120" TextAlignment="Center"/>
-            <Button Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="34" Height="32" Margin="10,10,0,0" Click="Button_Click_1" BorderBrush="{x:Null}">
-                <Button.Background>
-                    <ImageBrush ImageSource="Resources/Images/backarroworwhatever.png"/>
-                </Button.Background>
-            </Button>
 
         </Grid>
     </Viewbox>
