@@ -14,22 +14,6 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\trist\source\PUBLISH\BPSI\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,26 +34,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup />
   <PropertyGroup>
-    <ManifestCertificateThumbprint>B0554BBAEB623C02903D4D3126D9C9D8A973D2D3</ManifestCertificateThumbprint>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>BPSI2_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationIcon>BPSIlogoLARGE.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -94,7 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ErrorWindow.xaml">
+    <Page Include="GorillaPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,8 +81,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CoolKidClass.cs" />
-    <Compile Include="ErrorWindow.xaml.cs">
-      <DependentUpon>ErrorWindow.xaml</DependentUpon>
+    <Compile Include="GorillaPage.xaml.cs">
+      <DependentUpon>GorillaPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>
@@ -149,7 +118,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="BPSI2_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,16 +136,25 @@
     <Resource Include="Resources\Images\PavlovBG.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <Resource Include="BPSIlogo %281%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BPSIlogoLARGE.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\BPSIlogoLARGE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\BPSIlogoLARGE.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\PavlovIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\gorICON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\backarroworwhatever.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
