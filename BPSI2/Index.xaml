@@ -7,19 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Index">
-    <Viewbox>
-        <Grid Background="#FF424242" Width="800" Height="450">
-            <Button x:Name="PavButton" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="127" Height="127" Click="PavButton_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="Resources/Images/PavlovIcon.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="GorButton" Content="" HorizontalAlignment="Left" Margin="147,10,0,0" VerticalAlignment="Top" Width="127" Height="127" Click="GorButton_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="Resources/Images/gorICON.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="DevInterface" Content="Debug Interface" HorizontalAlignment="Left" Margin="285,10,0,0" VerticalAlignment="Top" Width="127" Height="127" Background="#FFBBBBBB" FontSize="16" Click="DevInterface_Click" Visibility="Hidden"/>
-        </Grid>
-    </Viewbox>
+
+    <Grid Background="White">
+        
+    </Grid>
 </Page>
