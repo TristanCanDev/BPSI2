@@ -12,6 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Net;
+using System.IO.Compression;
+using System.Diagnostics;
+using System.IO.Packaging;
+using System.Security.AccessControl;
+using System.Security.Principal;
+using System.Data;
+using System.Security.Cryptography.X509Certificates;
+using System.ComponentModel;
 
 namespace BPSI2
 {
@@ -23,6 +33,23 @@ namespace BPSI2
         public Index()
         {
             InitializeComponent();
+        }
+
+        private void PavButton_Click(object sender, RoutedEventArgs e)
+        {
+            Uri page = new Uri("PavlovPage.xaml", UriKind.Relative);
+            NavigationService.Navigate(page);
+        }
+
+        private void DevInterface_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GorButton_Click(object sender, RoutedEventArgs e)
+        {
+            Uri page = new Uri("GorillaPage.xaml", UriKind.Relative);
+            NavigationService.Navigate(page);
         }
     }
 }

@@ -23,6 +23,7 @@ using System.Data;
 using System.Security.Cryptography.X509Certificates;
 using System.ComponentModel;
 
+
 namespace BPSI2
 {
     /// <summary>
@@ -51,13 +52,13 @@ namespace BPSI2
             }
             WebClient upsitxt = new WebClient();
             Uri txturl = new Uri("https://thesideloader.co.uk/upsiopts.txt");
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\upsiopts.txt"))
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\Resources\\upsiopts.txt"))
             {
-                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\upsiopts.txt");
+                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\Resources\\upsiopts.txt");
             }
-            upsitxt.DownloadFile(txturl, path + "\\upsiopts.txt");
+            upsitxt.DownloadFile(txturl, path + "\\Resources\\upsiopts.txt");
 
-            string[] txtlines = File.ReadAllLines(path + "\\upsiopts.txt");
+            string[] txtlines = File.ReadAllLines(path + "\\Resources\\upsiopts.txt");
 
             foreach (string line in txtlines)
             {
@@ -203,6 +204,18 @@ namespace BPSI2
         void SetNameYes(string uName, string appname)
         {
             
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack == true)
+            {
+                NavigationService.GoBack();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

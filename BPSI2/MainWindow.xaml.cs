@@ -27,7 +27,7 @@ namespace BPSI2
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : NavigationWindow
     {
         
 
@@ -36,14 +36,20 @@ namespace BPSI2
             InitializeComponent();
             if(CoolKidClass.checkforinternetconnection()== false)
             {
-                Offlinething.Visibility = Visibility.Visible;
+                //Offlinething.Visibility = Visibility.Visible;
                 return;
             }
             else
             {
-                Offlinething.Visibility = Visibility.Hidden;
+                //Offlinething.Visibility = Visibility.Hidden;
             }
 
+
+            // These next comments are just stored code for a future update
+            //Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\", true);
+            //Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\");
+            
+            
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\"))
             {
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\Blu\\");
@@ -51,6 +57,10 @@ namespace BPSI2
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\"))
             {
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\GameFiles\\");
+            }
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\Resources\\"))
+            {
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\Resources\\");
             }
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\initialized.blu"))
             {
@@ -61,15 +71,16 @@ namespace BPSI2
             {
                 yes.Kill();
             }
-            if (Offlinething.Visibility == Visibility.Hidden)
+            if (CoolKidClass.checkforinternetconnection()==true)
             {
-                coolFrame.Navigate(new PavlovPage());
+                Uri page = new Uri("Index.xaml", UriKind.Relative);
+                NavigationService.Navigate(page);
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            coolFrame.Navigate(new PavlovPage());
+            
 
         }
 
