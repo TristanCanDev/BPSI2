@@ -37,6 +37,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Images\BPSIlogoLARGE.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -124,6 +127,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\PavlovBG.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\backarroworwhatever.png" />
+    <Resource Include="Resources\Images\BPSIlogo %281%29.ico" />
+    <Resource Include="Resources\Images\BPSIlogoLARGE.ico" />
+    <Resource Include="Resources\Images\gorICON.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
