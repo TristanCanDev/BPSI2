@@ -35,28 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-<<<<<<< HEAD
     <ApplicationManifest>app.manifest</ApplicationManifest>
-=======
-    <ManifestCertificateThumbprint>B0554BBAEB623C02903D4D3126D9C9D8A973D2D3</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>BPSI2_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
->>>>>>> parent of 67f69ad... Apparently can't live without ClickOnce
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
