@@ -27,22 +27,22 @@ namespace BPSI2
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : NavigationWindow
     {
         
 
         public MainWindow()
         {
             InitializeComponent();
-            if(CoolKidClass.checkforinternetconnection()== false)
-            {
-                Offlinething.Visibility = Visibility.Visible;
-                return;
-            }
-            else
-            {
-                Offlinething.Visibility = Visibility.Hidden;
-            }
+            //if(CoolKidClass.checkforinternetconnection()== false)
+            //{
+            //    Offlinething.Visibility = Visibility.Visible;
+            //    return;
+            //}
+            //else
+            //{
+            //    Offlinething.Visibility = Visibility.Hidden;
+            //}
 
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Blu\\"))
             {
@@ -61,16 +61,17 @@ namespace BPSI2
             {
                 yes.Kill();
             }
-            if (Offlinething.Visibility == Visibility.Hidden)
-            {
-                coolFrame.Navigate(new PavlovPage());
-            }
+            //if (Offlinething.Visibility == Visibility.Hidden)
+            //{
+            //    coolFrame.Navigate(new PavlovPage());
+            //}
+            Uri page = new Uri("Index.xaml", UriKind.Relative);
+            NavigationService.Navigate(page);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            coolFrame.Navigate(new PavlovPage());
-
+            
         }
 
         

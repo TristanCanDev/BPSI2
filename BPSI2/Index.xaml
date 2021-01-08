@@ -8,7 +8,11 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Index">
 
-    <Grid Background="White">
-        
+    <Grid x:Name="ErrGrid" Background="#FF3C3C3C">
+        <Grid HorizontalAlignment="Left" Height="28" Margin="0,422,0,0" VerticalAlignment="Top" Width="800" Background="#FFA8A8A8" Visibility="Hidden">
+            <TextBlock x:Name="ErrText" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="Error Status" VerticalAlignment="Top" Height="26" Width="780" FontSize="20"/>
+        </Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="101" Height="100" Click="Button_Click"/>
+
     </Grid>
 </Page>

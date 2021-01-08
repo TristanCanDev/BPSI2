@@ -1,4 +1,4 @@
-﻿<Window x:Class="BPSI2.MainWindow"
+﻿<NavigationWindow x:Class="BPSI2.MainWindow" ShowsNavigationUI="False"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,14 +6,10 @@
         xmlns:local="clr-namespace:BPSI2"
         mc:Ignorable="d"
         Title="BPSI - Blu's Pre-Release Software Installer" Height="450" Width="800">
+    <NavigationWindow.Background>
+        <ImageBrush ImageSource="Resources/Images/BPSImain.jpg"/>
+    </NavigationWindow.Background>
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Resources/Images/BPSImain.jpg"/>
-        </Grid.Background>
-        <Frame x:Name="coolFrame"/>
-        <TextBlock x:Name="Offlinething" HorizontalAlignment="Left" Margin="265,97,0,0" TextWrapping="Wrap" Text="Computer Offline. Please Restart The Program When Connected To The Internet" VerticalAlignment="Top" Width="280" TextAlignment="Center" Height="151" FontSize="24" Background="#FFA8A8A8" Visibility="Hidden"/>
 
-    </Grid>
 
-</Window>
+</NavigationWindow>

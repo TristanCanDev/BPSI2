@@ -24,5 +24,14 @@ namespace BPSI2
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(CoolKidClass.checkforinternetconnection() == false)
+            {
+                ErrGrid.Visibility = Visibility.Visible;
+                ErrText.Text = "Internet not connected. Please reconnect and try again";
+            }
+        }
     }
 }
